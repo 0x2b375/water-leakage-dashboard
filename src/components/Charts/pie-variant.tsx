@@ -13,7 +13,7 @@ type Props = {
 
 export const PieVariant = ({ data }: Props) => {
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={350}>
       <PieChart>
         <Legend
           layout="horizontal"
