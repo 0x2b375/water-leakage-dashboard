@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-poppins: "Poppins", sans-serif;
+  /* ... */
+}
+@theme {
+    --color-main: #f3f4f6;
+    --color-text: #1f2937;
+}
+
+main {
+    font-family: var(--font-roboto);
+    background-color: var(--color-main);
+    color: var(--color-text);
+}
