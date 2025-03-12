@@ -1,3 +1,4 @@
+import UserButton from "../user-button";
 import { HeaderLogo } from "./header-logo";
 import Navigation from "./navigation";
 
@@ -10,6 +11,7 @@ const Header = () => {
             <HeaderLogo />
             <Navigation />
           </div>
+          <UserButton afterSignOutUrl="/" userName="John Doe" />
         </div>
       </div>
     </div>
