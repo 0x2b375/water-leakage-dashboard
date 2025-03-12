@@ -9,6 +9,10 @@ const routes = [
     href: "/settings",
     label: "Settings",
   },
+  {
+    href: "/profile",
+    label: "Profile",
+  },
 ];
 
 export const Navigation = () => {
