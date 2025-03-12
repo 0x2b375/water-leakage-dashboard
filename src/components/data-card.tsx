@@ -16,7 +16,7 @@ const DataCard: React.FC<CardProps> = ({
   icon: Icon,
 }) => {
   return (
-    <div className="bg-white drop-shadow-xl rounded-lg p-6 flex flex-row justify-between items-center">
+    <div className="bg-white drop-shadow-xl rounded-lg p-6 flex flex-row justify-between items-center relative z-999">
       <div>
         <h3 className="text-2xl font-bold mb-2">{title}</h3>
         <p className="text-gray-700">{content}</p>
