@@ -1,4 +1,5 @@
 import UserButton from "../user-button";
+import { WelcomeMsg } from "../welcome-msg";
 import { HeaderLogo } from "./header-logo";
 import Navigation from "./navigation";
 
@@ -13,6 +14,7 @@ const Header = () => {
           </div>
           <UserButton afterSignOutUrl="/" userName="John Doe" />
         </div>
+        <WelcomeMsg />
       </div>
     </div>
   );
