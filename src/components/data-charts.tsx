@@ -17,7 +17,7 @@ const data = {
     { name: "Entertainment", value: 20, expenses: 10 },
   ],
 };
-export const DataCharts = () => {
+export function DataCharts() {
   const isLoading = false;
 
   if (isLoading) {
@@ -43,4 +43,4 @@ export const DataCharts = () => {
       </div>
     </div>
   );
-};
+}
