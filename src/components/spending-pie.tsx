@@ -10,14 +10,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger } from "./ui/select";
 import { Skeleton } from "./ui/skeleton";
 
 type Props = {
-  data?: {
+  data: {
     name: string;
     value: number;
     expenses: number;
   }[];
 };
 
-export function SpendingPie({ data = [] }: Props) {
+const defaultData: Props["data"] = [];
+
+export function SpendingPie({ data = defaultData }: Props) {
   const [chartType, setChartType] = useState("pie");
 
   const onTypeChange = (type: string) => {
@@ -54,7 +56,7 @@ export function SpendingPie({ data = [] }: Props) {
         </Select>
       </CardHeader>
       <CardContent>
-        {data.length === 0
+        {data?.length === 0
           ? (
               <div className="flex flex-col gap-y-4 items-center justify-center h-[350px] w-full">
                 <FileSearch className="size-6 text-muted-foreground" />
@@ -71,6 +73,7 @@ export function SpendingPie({ data = [] }: Props) {
               </>
             )}
       </CardContent>
+
     </Card>
   );
 }

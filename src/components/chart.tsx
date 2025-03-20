@@ -10,14 +10,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger } from "./ui/select";
 import { Skeleton } from "./ui/skeleton";
 
 type Props = {
-  data?: {
+  data: {
     date: string;
     income: number;
     expenses: number;
   }[];
 };
 
-export function Chart({ data = [] }: Props) {
+const defaultData: Props["data"] = [];
+
+export function Chart({ data = defaultData }: Props) {
   const [chartType, setChartType] = useState("area");
 
   const onTypeChange = (type: string) => {
