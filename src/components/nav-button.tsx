@@ -1,13 +1,14 @@
+import { NavLink } from "react-router";
+
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { NavLink } from "react-router";
 
 type Props = {
   href: string;
   label: string;
 };
 
-export const NavButton = ({ href, label }: Props) => {
+export function NavButton({ href, label }: Props) {
   return (
     <NavLink to={href}>
       {({ isActive }) => (
@@ -16,7 +17,7 @@ export const NavButton = ({ href, label }: Props) => {
           variant="outline"
           className={cn(
             "w-full !p-4 lg:w-auto justify-between font-normal hover:bg-white/25 cursor-pointer hover:text-white border-none focus-visible:ring-offset-0 focus-visible:ring-transparent text-white outline-none transition-all duration-300",
-            isActive ? "bg-white/25 text-white" : "bg-transparent"
+            isActive ? "bg-white/25 text-white" : "bg-transparent",
           )}
         >
           {label}
@@ -24,4 +25,4 @@ export const NavButton = ({ href, label }: Props) => {
       )}
     </NavLink>
   );
-};
+}

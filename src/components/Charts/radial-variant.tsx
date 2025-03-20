@@ -15,7 +15,7 @@ type Props = {
   }[];
 };
 
-export const RadialVariant = ({ data }: Props) => {
+export function RadialVariant({ data }: Props) {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <RadialBarChart
@@ -31,7 +31,7 @@ export const RadialVariant = ({ data }: Props) => {
         <RadialBar
           label={{ position: "insideStart", fill: "#fff", fontSize: 12 }}
           background
-          dataKey={"value"}
+          dataKey="value"
         />
         <Legend
           layout="horizontal"
@@ -62,4 +62,4 @@ export const RadialVariant = ({ data }: Props) => {
       </RadialBarChart>
     </ResponsiveContainer>
   );
-};
+}

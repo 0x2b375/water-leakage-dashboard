@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+
 import { CategoryTooltip } from "../category-tooltip";
 
 const COLORS = ["#0062FE", "#12C6FF", "#FF647F", "#FF9354"];
@@ -11,7 +12,7 @@ type Props = {
   }[];
 };
 
-export const PieVariant = ({ data }: Props) => {
+export function PieVariant({ data }: Props) {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <PieChart>
@@ -34,9 +35,11 @@ export const PieVariant = ({ data }: Props) => {
                     <span className="text-sm text-muted-foreground">
                       {entry.value}
                     </span>
-                    <span className="text-sm">{`${(
-                      entry.payload.percent * 100
-                    ).toPrecision(2)}%`}</span>
+                    <span className="text-sm">
+                      {`${(
+                        entry.payload.percent * 100
+                      ).toPrecision(2)}%`}
+                    </span>
                   </div>
                 </li>
               ))}
@@ -64,4 +67,4 @@ export const PieVariant = ({ data }: Props) => {
       </PieChart>
     </ResponsiveContainer>
   );
-};
+}

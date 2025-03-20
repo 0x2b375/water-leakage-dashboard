@@ -7,7 +7,9 @@ import {
   Tooltip,
   XAxis,
 } from "recharts";
+
 import { CustomTooltip } from "../custom-tooltip";
+
 type Props = {
   data: {
     date: string;
@@ -16,7 +18,7 @@ type Props = {
   }[];
 };
 
-export const LineVariant = ({ data }: Props) => {
+export function LineVariant({ data }: Props) {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <LineChart data={data}>
@@ -35,7 +37,7 @@ export const LineVariant = ({ data }: Props) => {
           dataKey="date"
           axisLine={false}
           tickLine={false}
-          tickFormatter={(d) => format(d, "dd MMM")}
+          tickFormatter={d => format(d, "dd MMM")}
           style={{ fontSize: 12 }}
           tickMargin={16}
         />
@@ -57,4 +59,4 @@ export const LineVariant = ({ data }: Props) => {
       </LineChart>
     </ResponsiveContainer>
   );
-};
+}

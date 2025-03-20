@@ -7,7 +7,9 @@ import {
   Tooltip,
   XAxis,
 } from "recharts";
+
 import { CustomTooltip } from "../custom-tooltip";
+
 type Props = {
   data: {
     date: string;
@@ -16,7 +18,7 @@ type Props = {
   }[];
 };
 
-export const AreaVariant = ({ data }: Props) => {
+export function AreaVariant({ data }: Props) {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <AreaChart data={data}>
@@ -35,7 +37,7 @@ export const AreaVariant = ({ data }: Props) => {
           dataKey="date"
           axisLine={false}
           tickLine={false}
-          tickFormatter={(d) => format(d, "dd MMM")}
+          tickFormatter={d => format(d, "dd MMM")}
           style={{ fontSize: 12 }}
           tickMargin={16}
         />
@@ -43,7 +45,7 @@ export const AreaVariant = ({ data }: Props) => {
         <Area
           type="monotone"
           dataKey="income"
-          stackId={"income"}
+          stackId="income"
           stroke="#3d82f6"
           fill="url(#income)"
           strokeWidth={2}
@@ -52,7 +54,7 @@ export const AreaVariant = ({ data }: Props) => {
         <Area
           type="monotone"
           dataKey="expenses"
-          stackId={"expenses"}
+          stackId="expenses"
           stroke="#f43f5e"
           fill="url(#expenses)"
           strokeWidth={2}
@@ -61,4 +63,4 @@ export const AreaVariant = ({ data }: Props) => {
       </AreaChart>
     </ResponsiveContainer>
   );
-};
+}

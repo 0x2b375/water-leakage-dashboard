@@ -1,6 +1,8 @@
+import { FiAlertCircle, FiCpu, FiTrendingUp } from "react-icons/fi";
+
 import DataCard, { DataCardLoading } from "./data-card";
-import { FiCpu, FiAlertCircle, FiTrendingUp } from "react-icons/fi";
-export const DataGrid = () => {
+
+export function DataGrid() {
   const isLoading = false;
   if (isLoading) {
     return (
@@ -33,4 +35,4 @@ export const DataGrid = () => {
       />
     </div>
   );
-};
+}

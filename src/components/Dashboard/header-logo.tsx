@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-export const HeaderLogo = () => {
+export function HeaderLogo() {
   return (
     <Link to="/">
       <div className="items-center hidden lg:flex">
@@ -9,4 +9,4 @@ export const HeaderLogo = () => {
       </div>
     </Link>
   );
-};
+}
