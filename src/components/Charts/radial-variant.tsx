@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Legend,
   RadialBar,
@@ -39,9 +38,9 @@ export function RadialVariant({ data }: Props) {
           align="right"
           content={({ payload }: any) => (
             <ul className="flex flex-col space-y-2">
-              {payload.map((entry: any, index: number) => (
+              {payload.map((entry: any) => (
                 <li
-                  key={`item-${index}`}
+                  key={entry.payload.name}
                   className="flex items-center space-x-2"
                 >
                   <span

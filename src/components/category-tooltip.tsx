@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Separator } from "./ui/separator";
 
 type PayloadItem = {

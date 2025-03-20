@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 import { CategoryTooltip } from "../category-tooltip";
@@ -22,9 +21,9 @@ export function PieVariant({ data }: Props) {
           align="right"
           content={({ payload }: any) => (
             <ul className="flex flex-col space-y-2">
-              {payload.map((entry: any, index: number) => (
+              {payload.map((entry: any) => (
                 <li
-                  key={`item-${index}`}
+                  key={entry.value}
                   className="flex items-center space-x-2"
                 >
                   <span
@@ -61,7 +60,7 @@ export function PieVariant({ data }: Props) {
           label={false}
         >
           {data.map((_entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            <Cell key={_entry.name} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
       </PieChart>

@@ -29,7 +29,7 @@ const UserButton: React.FC<UserButtonProps> = ({ afterSignOutUrl, userName }) =>
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center rounded-full focus:outline-none cursor-pointer">
+        <button className="flex items-center rounded-full focus:outline-none cursor-pointer" type="button">
           <Avatar className="h-10 w-10">
             <AvatarImage src="avatar.jpg" alt="User Avatar" />
             <AvatarFallback>U</AvatarFallback>
