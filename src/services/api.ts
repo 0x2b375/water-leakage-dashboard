@@ -1,13 +1,36 @@
+import axios from "axios";
+
+const API_BASE_URL = "http://localhost:3000/api";
 
 export const fetchSensorData = async () => {
   try {
-    const response = await fetch("https://your-backend-api/sensor-data");
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
+    const response = await axios.get("http://localhost:3000/api/flow/history");
+    return response.data.map((entry: { id: number; received_date: string; flow_rate: number }) => ({
+      id: entry.id,
+      date: new Date(entry.received_date).toISOString().split("T")[0],
+      flowRate: entry.flow_rate ?? 0,
+    }));
   } catch (error) {
     console.error("Failed to fetch sensor data:", error);
-    throw error;
+    return [];
+  }
+};
+
+export const fetchLatestSensorData = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/flow`);
+    const entry = response.data;
+
+    return {
+      flowRate: entry.flow_rate ?? 0,
+      receivedDate: entry.received_date ?? null,
+      id: entry.id,
+    };
+  } catch (error) {
+    console.error("Failed to fetch latest sensor data:", error);
+    return {
+      flowRate: 0,
+      receivedDate: null,
+    };
   }
 };

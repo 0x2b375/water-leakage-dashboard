@@ -1,19 +1,36 @@
 import { SelectValue } from "@radix-ui/react-select";
-import { AreaChart, BarChart3, FileSearch, LineChart, Loader2 } from "lucide-react";
+import {
+  AreaChart,
+  BarChart3,
+  FileSearch,
+  LineChart,
+  Loader2,
+} from "lucide-react";
 import { useState } from "react";
 import { AreaVariant } from "./Charts/aria-variant";
 import { BarVariant } from "./Charts/bar-variant";
 import { LineVariant } from "./Charts/line-variant";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "./ui/select";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "./ui/select";
 import { Skeleton } from "./ui/skeleton";
 
+type FlowData = {
+  date: string;
+  flowRate: number;
+};
+
 type Props = {
-  data?: {
-    date: string;
-    income: number;
-    expenses: number;
-  }[];
+  data?: FlowData[];
 };
 
 export const Chart = ({ data = [] }: Props) => {
@@ -22,10 +39,11 @@ export const Chart = ({ data = [] }: Props) => {
   const onTypeChange = (type: string) => {
     setChartType(type);
   };
+
   return (
     <Card className="w-full border-none drop-shadow-sm">
       <CardHeader className="flex space-y-2 lg:space-y-0 lg:flex-row lg:items-center justify-between">
-        <CardTitle className="text-xl line-clamp-1">Transactions</CardTitle>
+        <CardTitle className="text-xl line-clamp-1">Water Flow</CardTitle>
         <Select defaultValue={chartType} onValueChange={onTypeChange}>
           <SelectTrigger className="lg:w-auto h-9 rounded-md px3">
             <SelectValue placeholder="Chart Type" />

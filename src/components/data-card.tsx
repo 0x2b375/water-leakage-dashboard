@@ -1,11 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { IconType } from "react-icons";
 import { Skeleton } from "./ui/skeleton";
 
 interface CardProps {
   title: string;
   content: string;
-  footer?: string;
+  footer?: ReactNode;
   icon?: IconType;
 }
 
