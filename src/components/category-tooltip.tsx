@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Separator } from "./ui/separator";
 
 type PayloadItem = {
@@ -9,13 +8,14 @@ type PayloadItem = {
   }[];
 };
 
-interface CustomTooltipProps {
+type CustomTooltipProps = {
   active: boolean;
   payload: PayloadItem[];
-}
+};
 
-export const CategoryTooltip = ({ active, payload }: CustomTooltipProps) => {
-  if (!active) return null;
+export function CategoryTooltip({ active, payload }: CustomTooltipProps) {
+  if (!active)
+    return null;
   const name = payload[0].payload.name;
   const value = payload[0].payload.value;
 
@@ -37,4 +37,4 @@ export const CategoryTooltip = ({ active, payload }: CustomTooltipProps) => {
       </div>
     </div>
   );
-};
+}

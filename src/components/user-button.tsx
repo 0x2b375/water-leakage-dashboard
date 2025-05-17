@@ -1,3 +1,7 @@
+import { LogOut } from "lucide-react";
+import React from "react";
+import { useNavigate } from "react-router";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -7,14 +11,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut } from "lucide-react";
-import React from "react";
-import { useNavigate } from "react-router";
 
-interface UserButtonProps {
+type UserButtonProps = {
   afterSignOutUrl: string;
   userName: string;
-}
+};
 
 const UserButton: React.FC<UserButtonProps> = ({ afterSignOutUrl, userName }) => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const UserButton: React.FC<UserButtonProps> = ({ afterSignOutUrl, userName }) =>
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center rounded-full focus:outline-none cursor-pointer">
+        <button className="flex items-center rounded-full focus:outline-none cursor-pointer" type="button">
           <Avatar className="h-10 w-10">
             <AvatarImage src="avatar.jpg" alt="User Avatar" />
             <AvatarFallback>U</AvatarFallback>
@@ -39,7 +40,9 @@ const UserButton: React.FC<UserButtonProps> = ({ afterSignOutUrl, userName }) =>
         <DropdownMenuLabel>{userName}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} className="opacity-80 flex">
-          <LogOut /> Sign Out
+          <LogOut />
+          {" "}
+          Sign Out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

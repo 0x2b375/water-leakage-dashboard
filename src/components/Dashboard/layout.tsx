@@ -1,7 +1,8 @@
 import { Outlet } from "react-router";
+
 import Header from "./header";
 
-const DashboardLayout = () => {
+function DashboardLayout() {
   return (
     <div className="h-screen">
       <Header />
@@ -10,6 +11,6 @@ const DashboardLayout = () => {
       </div>
     </div>
   );
-};
+}
 
 export default DashboardLayout;

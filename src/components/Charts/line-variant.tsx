@@ -7,16 +7,17 @@ import {
   Tooltip,
   XAxis,
 } from "recharts";
+
 import { CustomTooltip } from "../custom-tooltip";
 
 type Props = {
   data: {
-    date: string;        // ISO date string
-    flowRate: number;    // flow rate in L/min
+    date: string; // ISO date string
+    flowRate: number; // flow rate in L/min
   }[];
 };
 
-export const LineVariant = ({ data }: Props) => {
+export function LineVariant({ data }: Props) {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <LineChart data={data}>
@@ -31,7 +32,7 @@ export const LineVariant = ({ data }: Props) => {
           dataKey="date"
           axisLine={false}
           tickLine={false}
-          tickFormatter={(d) => format(parseISO(d), "dd MMM")}
+          tickFormatter={d => format(parseISO(d), "dd MMM")}
           style={{ fontSize: 12 }}
           tickMargin={16}
         />
@@ -47,4 +48,4 @@ export const LineVariant = ({ data }: Props) => {
       </LineChart>
     </ResponsiveContainer>
   );
-};
+}

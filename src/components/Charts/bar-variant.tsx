@@ -7,6 +7,7 @@ import {
   Tooltip,
   XAxis,
 } from "recharts";
+
 import { CustomTooltip } from "../custom-tooltip";
 
 type Props = {
@@ -16,7 +17,7 @@ type Props = {
   }[];
 };
 
-export const BarVariant = ({ data }: Props) => {
+export function BarVariant({ data }: Props) {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={data}>
@@ -31,7 +32,7 @@ export const BarVariant = ({ data }: Props) => {
           dataKey="date"
           axisLine={false}
           tickLine={false}
-          tickFormatter={(d) => format(parseISO(d), "dd MMM")}
+          tickFormatter={d => format(parseISO(d), "dd MMM")}
           style={{ fontSize: 12 }}
           tickMargin={16}
         />
@@ -40,4 +41,4 @@ export const BarVariant = ({ data }: Props) => {
       </BarChart>
     </ResponsiveContainer>
   );
-};
+}

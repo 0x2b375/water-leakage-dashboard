@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { DataCharts } from "@/components/data-charts";
 import { DataGrid } from "@/components/data-grid";
 import { fetchSensorData } from "@/services/api";
@@ -33,7 +34,7 @@ export default function Dashboard() {
     }
     lastSeenId.current = data.id;
 
-    setChartData((prev) => [
+    setChartData(prev => [
       ...prev.slice(-99),
       {
         id: data.id,

@@ -7,6 +7,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { useState } from "react";
+
 import { AreaVariant } from "./Charts/aria-variant";
 import { BarVariant } from "./Charts/bar-variant";
 import { LineVariant } from "./Charts/line-variant";
@@ -33,7 +34,9 @@ type Props = {
   data?: FlowData[];
 };
 
-export const Chart = ({ data = [] }: Props) => {
+const defaultData: Props["data"] = [];
+
+export function Chart({ data = defaultData }: Props) {
   const [chartType, setChartType] = useState("area");
 
   const onTypeChange = (type: string) => {
@@ -71,26 +74,28 @@ export const Chart = ({ data = [] }: Props) => {
         </Select>
       </CardHeader>
       <CardContent>
-        {data.length === 0 ? (
-          <div className="flex flex-col gap-y-4 items-center justify-center h-[350px] w-full">
-            <FileSearch className="size-6 text-muted-foreground" />
-            <p className="text-muted-foreground text-sm">
-              No data for this chart
-            </p>
-          </div>
-        ) : (
-          <>
-            {chartType === "area" && <AreaVariant data={data} />}
-            {chartType === "line" && <LineVariant data={data} />}
-            {chartType === "bar" && <BarVariant data={data} />}
-          </>
-        )}
+        {data.length === 0
+          ? (
+              <div className="flex flex-col gap-y-4 items-center justify-center h-[350px] w-full">
+                <FileSearch className="size-6 text-muted-foreground" />
+                <p className="text-muted-foreground text-sm">
+                  No data for this chart
+                </p>
+              </div>
+            )
+          : (
+              <>
+                {chartType === "area" && <AreaVariant data={data} />}
+                {chartType === "line" && <LineVariant data={data} />}
+                {chartType === "bar" && <BarVariant data={data} />}
+              </>
+            )}
       </CardContent>
     </Card>
   );
-};
+}
 
-export const ChartLoading = () => {
+export function ChartLoading() {
   return (
     <Card className="border-none drop-shadow-sm">
       <CardHeader className="flex space-y-2 lg:space-y-0 lg:flex-row lg:items-center justify-between">
@@ -104,4 +109,4 @@ export const ChartLoading = () => {
       </CardContent>
     </Card>
   );
-};
+}

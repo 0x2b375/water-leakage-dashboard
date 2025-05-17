@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { FiAlertCircle, FiCpu, FiTrendingUp } from "react-icons/fi";
 import { io } from "socket.io-client";
-import DataCard, { DataCardLoading } from "./data-card";
-import { FiCpu, FiAlertCircle, FiTrendingUp } from "react-icons/fi";
+
 import { fetchLatestSensorData } from "@/services/api";
+
+import DataCard, { DataCardLoading } from "./data-card";
 
 const socket = io("http://localhost:3000");
 
@@ -14,7 +16,7 @@ type Props = {
   }) => void;
 };
 
-export const DataGrid = ({ onLiveUpdate }: Props) => {
+export function DataGrid({ onLiveUpdate }: Props) {
   const [latestData, setLatestData] = useState<{
     flow_rate: number;
     received_date: string;
@@ -40,7 +42,7 @@ export const DataGrid = ({ onLiveUpdate }: Props) => {
         });
         setIsLoading(false);
       })
-      .catch((err) => console.error("Initial fetch error", err));
+      .catch(err => console.error("Initial fetch error", err));
 
     socket.on("flow-update", (data) => {
       setLatestData(data);
@@ -73,15 +75,15 @@ export const DataGrid = ({ onLiveUpdate }: Props) => {
       <DataCard
         title="Current Flow Rate"
         content={`${latestData?.flow_rate.toFixed(2)} L/min`}
-        footer={
+        footer={(
           <>
-            {latestData?.received_date &&
-              `Received: ${new Date(
-                latestData.received_date
+            {latestData?.received_date
+              && `Received: ${new Date(
+                latestData.received_date,
               ).toLocaleString()}`}
             {isLive && <span className="ml-2 text-green-600 text-sm">● Live</span>}
           </>
-        }
+        )}
         icon={FiCpu}
       />
       <DataCard
@@ -102,4 +104,4 @@ export const DataGrid = ({ onLiveUpdate }: Props) => {
       />
     </div>
   );
-};
+}

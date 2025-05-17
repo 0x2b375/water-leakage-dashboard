@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router";
+
+import DashboardLayout from "../components/Dashboard/layout";
 import Dashboard from "../pages/Dashboard";
 import Settings from "../pages/Settings";
-import DashboardLayout from "../components/Dashboard/layout";
 
 export default function AppRouter() {
   return (

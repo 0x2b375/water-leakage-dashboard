@@ -1,13 +1,16 @@
-import React, { ReactNode } from "react";
-import { IconType } from "react-icons";
+import type { ReactNode } from "react";
+import type { IconType } from "react-icons";
+
+import React from "react";
+
 import { Skeleton } from "./ui/skeleton";
 
-interface CardProps {
+type CardProps = {
   title: string;
   content: string;
   footer?: ReactNode;
   icon?: IconType;
-}
+};
 
 const DataCard: React.FC<CardProps> = ({
   title,
@@ -33,7 +36,7 @@ const DataCard: React.FC<CardProps> = ({
 
 export default DataCard;
 
-export const DataCardLoading = () => {
+export function DataCardLoading() {
   return (
     <div className="bg-white drop-shadow-xl rounded-lg p-6 flex flex-row justify-between items-center h-[172px]">
       <div>
@@ -44,4 +47,4 @@ export const DataCardLoading = () => {
       <Skeleton className="size-10" />
     </div>
   );
-};
+}

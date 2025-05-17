@@ -12,7 +12,7 @@ type Props = {
   isLoading: boolean;
 };
 
-export const DataCharts = ({ data, isLoading }: Props) => {
+export function DataCharts({ data, isLoading }: Props) {
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
@@ -30,4 +30,4 @@ export const DataCharts = ({ data, isLoading }: Props) => {
       </div>
     </div>
   );
-};
+}

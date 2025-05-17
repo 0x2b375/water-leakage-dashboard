@@ -1,9 +1,11 @@
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { useMedia } from "react-use";
+
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+
 import { NavButton } from "../nav-button";
 
 const routes = [
@@ -21,7 +23,7 @@ const routes = [
   },
 ];
 
-export const Navigation = () => {
+export function Navigation() {
   const navigate = useNavigate();
   const pathname = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +48,7 @@ export const Navigation = () => {
         </SheetTrigger>
         <SheetContent className="px-2" side="left">
           <nav className="flex flex-col gap-y-2 pt-10">
-            {routes.map((route) => (
+            {routes.map(route => (
               <Button
                 variant={route.href === pathname.pathname ? "default" : "ghost"}
                 key={route.href}
@@ -64,11 +66,11 @@ export const Navigation = () => {
 
   return (
     <nav className="hidden lg:flex items-center gap-x-2 overflow-x-auto">
-      {routes.map((route) => (
+      {routes.map(route => (
         <NavButton key={route.href} href={route.href} label={route.label} />
       ))}
     </nav>
   );
-};
+}
 
 export default Navigation;

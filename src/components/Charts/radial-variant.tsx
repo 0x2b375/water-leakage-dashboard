@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Legend,
   RadialBar,
@@ -15,7 +14,7 @@ type Props = {
   }[];
 };
 
-export const RadialVariant = ({ data }: Props) => {
+export function RadialVariant({ data }: Props) {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <RadialBarChart
@@ -31,7 +30,7 @@ export const RadialVariant = ({ data }: Props) => {
         <RadialBar
           label={{ position: "insideStart", fill: "#fff", fontSize: 12 }}
           background
-          dataKey={"value"}
+          dataKey="value"
         />
         <Legend
           layout="horizontal"
@@ -39,9 +38,9 @@ export const RadialVariant = ({ data }: Props) => {
           align="right"
           content={({ payload }: any) => (
             <ul className="flex flex-col space-y-2">
-              {payload.map((entry: any, index: number) => (
+              {payload.map((entry: any) => (
                 <li
-                  key={`item-${index}`}
+                  key={entry.payload.name}
                   className="flex items-center space-x-2"
                 >
                   <span
@@ -62,4 +61,4 @@ export const RadialVariant = ({ data }: Props) => {
       </RadialBarChart>
     </ResponsiveContainer>
   );
-};
+}
