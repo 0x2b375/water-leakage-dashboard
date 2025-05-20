@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { FiAlertCircle, FiCpu, FiTrendingUp } from "react-icons/fi";
 import { io } from "socket.io-client";
+import { toast } from "sonner"; // Import Sonner toast
 
-import { fetchLatestSensorData } from "@/services/api";
+import { fetchLatestSensorData, fetchSensorData } from "@/services/api";
 
 import DataCard, { DataCardLoading } from "./data-card";
 
@@ -26,27 +29,56 @@ export function DataGrid({ onLiveUpdate }: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const [isLive, setIsLive] = useState(false);
 
+  const [totalFlow, setTotalFlow] = useState(0);
+
+  const lastSeenId = useRef<number | null>(null);
+  const alertedIds = useRef<Set<number>>(new Set());
+
   useEffect(() => {
-    fetchLatestSensorData()
-      .then((data) => {
-        const formatted = {
-          flow_rate: data.flowRate,
-          received_date: data.receivedDate || new Date().toISOString(),
-          id: data.id,
-        };
-        setLatestData(formatted);
-        onLiveUpdate?.({
-          flowRate: formatted.flow_rate,
-          date: formatted.received_date.split("T")[0],
-          id: data.id,
-        });
-        setIsLoading(false);
+    fetchSensorData()
+      .then((historyData) => {
+        const sumHistory = historyData.reduce((acc, cur) => acc + cur.flowRate, 0);
+        setTotalFlow(sumHistory);
+
+        if (historyData.length > 0) {
+          lastSeenId.current = Math.max(...historyData.map((d: any) => d.id));
+        }
+
+        return fetchLatestSensorData();
       })
-      .catch(err => console.error("Initial fetch error", err));
+      .then((latest) => {
+        if (latest.id && (lastSeenId.current === null || latest.id > lastSeenId.current)) {
+          setLatestData({
+            flow_rate: latest.flowRate,
+            received_date: latest.receivedDate || new Date().toISOString(),
+            id: latest.id,
+          });
+          setTotalFlow(prev => prev + latest.flowRate);
+          lastSeenId.current = latest.id;
+        }
+      })
+      .catch(err => console.error("Initial fetch error", err))
+      .finally(() => setIsLoading(false));
 
     socket.on("flow-update", (data) => {
       setLatestData(data);
       setIsLive(true);
+
+      if (lastSeenId.current === null || data.id > lastSeenId.current) {
+        setTotalFlow(prev => prev + data.flow_rate);
+        lastSeenId.current = data.id;
+      }
+
+      if (data.flow_rate > 50 && !alertedIds.current.has(data.id)) {
+        alertedIds.current.add(data.id);
+        toast(`⚠️ Possible leak detected! Flow rate: ${data.flow_rate.toFixed(2)} L/min`, {
+          description: `Received at ${new Date(data.received_date).toLocaleString()}`,
+          action: {
+            label: "Dismiss",
+            onClick: () => {}, // Optional: add extra logic on dismiss
+          },
+        });
+      }
 
       onLiveUpdate?.({
         flowRate: data.flow_rate,
@@ -75,21 +107,25 @@ export function DataGrid({ onLiveUpdate }: Props) {
       <DataCard
         title="Current Flow Rate"
         content={`${latestData?.flow_rate.toFixed(2)} L/min`}
-        footer={(
-          <>
-            {latestData?.received_date
-              && `Received: ${new Date(
-                latestData.received_date,
-              ).toLocaleString()}`}
-            {isLive && <span className="ml-2 text-green-600 text-sm">● Live</span>}
-          </>
-        )}
+        footer={
+          (
+            <>
+              {latestData?.received_date
+                && `Received: ${new Date(
+                  latestData.received_date,
+                ).toLocaleString()}`}
+              {isLive && (
+                <span className="ml-2 text-green-600 text-sm">● Live</span>
+              )}
+            </>
+          )
+        }
         icon={FiCpu}
       />
       <DataCard
         title="Alerts"
         content={
-          (latestData?.flow_rate ?? 0) > 10
+          (latestData?.flow_rate ?? 0) > 50
             ? "⚠️ Possible leak detected!"
             : "No active leak alerts"
         }
@@ -98,7 +134,7 @@ export function DataGrid({ onLiveUpdate }: Props) {
       />
       <DataCard
         title="Usage Stats"
-        content="View chart for breakdown"
+        content={`${totalFlow.toFixed(2)} L`}
         footer="Live data from sensor"
         icon={FiTrendingUp}
       />
