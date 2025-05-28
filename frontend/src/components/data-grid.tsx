@@ -134,7 +134,7 @@ export function DataGrid({ onLiveUpdate }: Props) {
       />
       <DataCard
         title="Usage Stats"
-        content={`${totalFlow.toFixed(2)} L`}
+        content={`${(totalFlow / 1000).toFixed(2)} T`}
         footer="Live data from sensor"
         icon={FiTrendingUp}
       />
