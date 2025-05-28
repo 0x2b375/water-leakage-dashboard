@@ -32,8 +32,8 @@ app.post("/api/flow", async (req, res) => {
     io.emit("flow-update", result.rows[0]);
     res.json({ code: 200, data: result.rows[0] });
   } catch (err) {
-    console.error("Database error:", err);
-    res.status(500).json({ error: "Database error" });
+  console.error("Database error:", err.message, err.stack);
+  res.status(500).json({ error: "Database error" });
   }
 });
 
@@ -44,7 +44,8 @@ app.get("/api/flow", async (req, res) => {
     );
     res.json(result.rows[0]);
   } catch (err) {
-    res.status(500).json({ error: "Database error" });
+  console.error("Database error:", err.message, err.stack);
+  res.status(500).json({ error: "Database error" });
   }
 });
 
@@ -55,7 +56,8 @@ app.get("/api/flow/history", async (req, res) => {
     );
     res.json(result.rows);
   } catch (err) {
-    res.status(500).json({ error: "Database error" });
+  console.error("Database error:", err.message, err.stack);
+  res.status(500).json({ error: "Database error" });
   }
 });
 
