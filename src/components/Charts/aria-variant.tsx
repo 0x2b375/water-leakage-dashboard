@@ -32,7 +32,7 @@ export function AreaVariant({ data }: Props) {
           dataKey="date"
           axisLine={false}
           tickLine={false}
-          tickFormatter={d => format(parseISO(d), "dd MMM")}
+          tickFormatter={d => format(parseISO(d), "HH:mm:ss")}
           style={{ fontSize: 12 }}
           tickMargin={16}
         />

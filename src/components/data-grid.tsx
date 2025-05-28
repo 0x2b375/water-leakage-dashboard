@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FiAlertCircle, FiCpu, FiTrendingUp } from "react-icons/fi";
 import { io } from "socket.io-client";
-import { toast } from "sonner"; // Import Sonner toast
+import { toast } from "sonner";
 
 import { fetchLatestSensorData, fetchSensorData } from "@/services/api";
 
@@ -37,7 +37,7 @@ export function DataGrid({ onLiveUpdate }: Props) {
   useEffect(() => {
     fetchSensorData()
       .then((historyData) => {
-        const sumHistory = historyData.reduce((acc, cur) => acc + cur.flowRate, 0);
+        const sumHistory = historyData.reduce((acc: any, cur: any) => acc + cur.flowRate, 0);
         setTotalFlow(sumHistory);
 
         if (historyData.length > 0) {
@@ -106,7 +106,7 @@ export function DataGrid({ onLiveUpdate }: Props) {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-2 mb-8">
       <DataCard
         title="Current Flow Rate"
-        content={`${latestData?.flow_rate.toFixed(2)} L/min`}
+        content={`${latestData ? latestData.flow_rate.toFixed(2) : "0"} L/min`}
         footer={
           (
             <>

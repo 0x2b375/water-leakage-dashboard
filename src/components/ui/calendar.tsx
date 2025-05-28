@@ -5,12 +5,12 @@ import { DayPicker } from "react-day-picker";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-// ✅ Extract these to avoid eslint error
-function IconLeft({ className, ...props }: React.HTMLAttributes<SVGElement>) {
+// IconLeft and IconRight moved outside Calendar to avoid nesting in props
+function IconLeft({ className, ...props }: React.ComponentProps<"svg">) {
   return <ChevronLeft className={cn("size-4", className)} {...props} />;
 }
 
-function IconRight({ className, ...props }: React.HTMLAttributes<SVGElement>) {
+function IconRight({ className, ...props }: React.ComponentProps<"svg">) {
   return <ChevronRight className={cn("size-4", className)} {...props} />;
 }
 

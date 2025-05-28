@@ -23,7 +23,7 @@ export function CustomTooltip({ active, payload }: CustomTooltipProps) {
   return (
     <div className="rounded-sm bg-white shadow-sm border overflow-hidden">
       <div className="text-sm p-2 px-3 bg-muted text-muted-foreground">
-        {format(parseISO(date), "MMM dd, yyyy")}
+        {format(parseISO(date), "dd MMM yyyy, HH:mm:ss")}
       </div>
       <Separator />
       <div className="p-2 px-3 space-y-1">

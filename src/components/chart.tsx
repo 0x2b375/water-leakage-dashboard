@@ -1,20 +1,15 @@
 "use client";
+import type { DateRange } from "react-day-picker";
 
-import { format } from "date-fns";
-import {
-  AreaChart,
-  BarChart3,
-  FileSearch,
-  LineChart,
-  Loader2,
-} from "lucide-react";
+import { isWithinInterval, parseISO } from "date-fns";
+import { AreaChart, BarChart3, FileSearch, LineChart, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 import { AreaVariant } from "./Charts/aria-variant";
 import { BarVariant } from "./Charts/bar-variant";
 import { LineVariant } from "./Charts/line-variant";
+import { DatePickerWithRange } from "./range-picker";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { DatePicker } from "./ui/date-picker"; // ✅ Your reusable date picker
 import {
   Select,
   SelectContent,
@@ -25,7 +20,7 @@ import {
 import { Skeleton } from "./ui/skeleton";
 
 type FlowData = {
-  date: string; // "yyyy-MM-dd"
+  date: string; // ISO string
   flowRate: number;
 };
 
@@ -37,14 +32,18 @@ const defaultData: Props["data"] = [];
 
 export function Chart({ data = defaultData }: Props) {
   const [chartType, setChartType] = useState("area");
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const [selectedRange, setSelectedRange] = useState<DateRange | undefined>();
 
-  const onTypeChange = (type: string) => {
-    setChartType(type);
-  };
+  const onTypeChange = (type: string) => setChartType(type);
 
-  const filteredData = selectedDate
-    ? data?.filter(entry => entry.date === format(selectedDate, "yyyy-MM-dd"))
+  const filteredData = selectedRange?.from && selectedRange?.to
+    ? data?.filter((entry) => {
+      const entryDate = parseISO(entry.date);
+      return isWithinInterval(entryDate, {
+        start: selectedRange.from!,
+        end: selectedRange.to!,
+      });
+    })
     : data;
 
   return (
@@ -52,7 +51,7 @@ export function Chart({ data = defaultData }: Props) {
       <CardHeader className="flex flex-col gap-2 lg:flex-row lg:items-center justify-between">
         <CardTitle className="text-xl line-clamp-1">Water Flow</CardTitle>
         <div className="flex flex-wrap gap-3 items-center">
-          <DatePicker date={selectedDate} onChange={setSelectedDate} />
+          <DatePickerWithRange className="w-[300px]" value={selectedRange} onDateChange={setSelectedRange} />
           <Select defaultValue={chartType} onValueChange={onTypeChange}>
             <SelectTrigger className="lg:w-auto h-9 rounded-md px-3">
               <SelectValue placeholder="Chart Type" />
@@ -86,9 +85,7 @@ export function Chart({ data = defaultData }: Props) {
           ? (
               <div className="flex flex-col gap-y-4 items-center justify-center h-[350px] w-full">
                 <FileSearch className="size-6 text-muted-foreground" />
-                <p className="text-muted-foreground text-sm">
-                  No data for this chart
-                </p>
+                <p className="text-muted-foreground text-sm">No data for this chart</p>
               </div>
             )
           : (
