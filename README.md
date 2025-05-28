@@ -37,7 +37,7 @@ A full-stack application for real-time water leak monitoring using IoT sensors. 
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/your-username/iot-water-dashboard.git
+git clone https://github.com/0x2b375/iot-water-dashboard.git
 cd iot-water-dashboard
 ```
 
@@ -45,8 +45,8 @@ cd iot-water-dashboard
 
 ```bash
 cd frontend
-npm install
-npm run dev
+bun install
+bun dev
 ```
 
 ### 3. Setup Backend
@@ -54,7 +54,7 @@ npm run dev
 ```bash
 cd ../backend
 npm install
-npm run dev
+npm start
 ```
 
 Make sure to configure your `.env` file for backend (e.g. DB connection, port).
