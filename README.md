@@ -38,7 +38,7 @@ A full-stack application for real-time water leak monitoring using IoT sensors. 
 
 ```bash
 git clone https://github.com/0x2b375/iot-water-dashboard.git
-cd iot-water-dashboard
+cd water-leakage-dashboard
 ```
 
 ### 2. Setup Frontend
