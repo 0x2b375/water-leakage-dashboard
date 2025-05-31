@@ -21,7 +21,6 @@ export default function Dashboard() {
     fetchSensorData()
       .then((data) => {
         setChartData(data);
-        console.warn(data);
         if (data.length > 0) {
           lastSeenId.current = data[data.length - 1].id;
         }

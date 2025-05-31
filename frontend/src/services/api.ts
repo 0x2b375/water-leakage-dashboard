@@ -5,7 +5,6 @@ const API_BASE_URL = "http://localhost:3000/api";
 export async function fetchSensorData() {
   try {
     const response = await axios.get(`${API_BASE_URL}/flow/history`);
-    console.warn(response);
     return response.data.map((entry: { id: number; received_date: string; flow_rate: number }) => ({
       id: entry.id,
       date: new Date(entry.received_date).toISOString(),
