@@ -35,14 +35,13 @@ export default function Dashboard() {
     }
     lastSeenId.current = data.id;
 
-    setChartData(prev => [
-      ...prev.slice(-99),
-      {
+    setChartData(prev =>
+      [...prev, {
         id: data.id,
-        date: data.date,
+        date: new Date(data.date).toISOString(),
         flowRate: data.flowRate,
-      },
-    ]);
+      }],
+    );
   };
 
   return (

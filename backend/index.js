@@ -52,7 +52,7 @@ app.get("/api/flow", async (req, res) => {
 app.get("/api/flow/history", async (req, res) => {
   try {
     const result = await db.query(
-      "SELECT * FROM flow_data ORDER BY received_date DESC"
+      "SELECT * FROM flow_data ORDER BY received_date ASC"
     );
     res.json(result.rows);
   } catch (err) {

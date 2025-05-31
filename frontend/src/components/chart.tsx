@@ -1,7 +1,6 @@
 "use client";
 import type { DateRange } from "react-day-picker";
 
-import { isWithinInterval, parseISO } from "date-fns";
 import { AreaChart, BarChart3, FileSearch, LineChart, Loader2 } from "lucide-react";
 import { useState } from "react";
 
@@ -34,17 +33,16 @@ export function Chart({ data = defaultData }: Props) {
   const [chartType, setChartType] = useState("area");
   const [selectedRange, setSelectedRange] = useState<DateRange | undefined>();
 
-  const onTypeChange = (type: string) => setChartType(type);
-
-  const filteredData = selectedRange?.from && selectedRange?.to
+  const filteredData = selectedRange
     ? data?.filter((entry) => {
-      const entryDate = parseISO(entry.date);
-      return isWithinInterval(entryDate, {
-        start: selectedRange.from!,
-        end: selectedRange.to!,
-      });
+      const entryDate = new Date(entry.date).getTime();
+      const from = selectedRange.from?.getTime() ?? 0;
+      const to = selectedRange.to?.getTime() ?? Infinity;
+      return entryDate >= from && entryDate <= to;
     })
     : data;
+
+  const onTypeChange = (type: string) => setChartType(type);
 
   return (
     <Card className="w-full border-none drop-shadow-sm">

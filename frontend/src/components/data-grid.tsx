@@ -82,7 +82,7 @@ export function DataGrid({ onLiveUpdate }: Props) {
 
       onLiveUpdate?.({
         flowRate: data.flow_rate,
-        date: data.received_date.split("T")[0],
+        date: new Date(data.received_date).toISOString(),
         id: data.id,
       });
     });
