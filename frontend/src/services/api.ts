@@ -37,3 +37,27 @@ export async function fetchLatestSensorData() {
     };
   }
 }
+export async function getThresholdSettings(deviceId: string) {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/settings/threshold/${deviceId}`);
+    return res.data;
+  }
+  catch (err) {
+    console.error("Failed to fetch threshold settings:", err);
+    return null;
+  }
+}
+
+export async function updateThresholdSettings(deviceId: string, threshold_value: number, threshold_duration: number) {
+  try {
+    const res = await axios.post(`${API_BASE_URL}/settings/threshold/${deviceId}`, {
+      threshold_value,
+      threshold_duration,
+    });
+    return res.data;
+  }
+  catch (err) {
+    console.error("Failed to update threshold settings:", err);
+    return null;
+  }
+}

@@ -61,6 +61,58 @@ app.get("/api/flow/history", async (req, res) => {
   }
 });
 
+// GET threshold for a specific device
+app.get("/api/settings/threshold/:deviceId", async (req, res) => {
+  const { deviceId } = req.params;
+
+  try {
+    const result = await db.query(
+      "SELECT * FROM threshold_settings WHERE device_id = $1",
+      [deviceId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Threshold settings not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Database error:", err.message, err.stack);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+// UPSERT threshold for a specific device
+app.post("/api/settings/threshold/:deviceId", async (req, res) => {
+  const { deviceId } = req.params;
+  const { threshold_value, threshold_duration } = req.body;
+
+  if (typeof threshold_value !== "number" || typeof threshold_duration !== "number") {
+    return res.status(400).json({ error: "Invalid input format" });
+  }
+
+  try {
+    const result = await db.query(
+      `
+      INSERT INTO threshold_settings (device_id, threshold_value, threshold_duration, updated_at)
+      VALUES ($1, $2, $3, NOW())
+      ON CONFLICT (device_id) DO UPDATE
+        SET threshold_value = EXCLUDED.threshold_value,
+            threshold_duration = EXCLUDED.threshold_duration,
+            updated_at = NOW()
+      RETURNING *;
+      `,
+      [deviceId, threshold_value, threshold_duration]
+    );
+
+    res.json({ success: true, data: result.rows[0] });
+  } catch (err) {
+    console.error("Database error:", err.message, err.stack);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
