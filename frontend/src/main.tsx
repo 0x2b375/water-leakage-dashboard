@@ -15,3 +15,12 @@ createRoot(document.getElementById("root")!).render(
     </BrowserRouter>
   </StrictMode>,
 );
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then(() => console.warn("✅ Service worker registered"))
+      .catch((err: any) => console.error("❌ Service worker registration failed:", err));
+  });
+}
